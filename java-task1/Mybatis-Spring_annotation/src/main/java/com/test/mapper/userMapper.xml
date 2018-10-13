@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须与接口Mapper的完整类名保持一致 -->
+<mapper namespace="com.test.mapper.UserMapper">
+    <!--添加用户-->
+    <insert id="saveUser" parameterType="User">
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into User(name,dept) values(#{name},#{dept})
+    </insert>
+    <!--根据id删除用户-->
+    <delete id="deleteUserById" parameterType="Integer">
+        delete from User where id = #{id}
+    </delete>
+    <!--根据id更新用户信息-->
+    <update id="updateUser" parameterType="User">
+        update User set name=#{name},dept=#{dept} where id=#{id}
+    </update>
+    <!--根据用户id查询用户-->
+    <select id="findUserById" resultType="User">
+        select * from User where id = #{id}
+    </select>
+</mapper>
